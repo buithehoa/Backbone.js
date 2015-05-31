@@ -20,6 +20,13 @@
       </section>
     </section>
 
+    <script type="text/template" id="item-template">
+      <div class="view">
+        <input class="toggle" type="checkbox">
+        <label><%- title %></label>
+      </div>
+    </script>
+
     <!-- ========= -->
     <!-- Libraries -->
     <!-- ========= -->
@@ -39,6 +46,16 @@
         defaults: {
           title: '',
           completed: false
+        }
+      });
+
+      // renders individual todo items list (li)
+      app.TodoView = Backbone.View.extend({
+        tagName: 'li',
+        template: _.template($('#item-template').html()),
+        render: function(){
+          this.$el.html(this.template(this.model.toJSON()));
+          return this; // enable chained calls
         }
       });
 
